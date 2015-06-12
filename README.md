@@ -27,7 +27,7 @@ var htmlsplit = require('gulp-htmlsplit');
 gulp.task('foo', function() {
   gulp.src('./*.html')
     .pipe(htmlsplit())
-    .pipe(gul.dest('build'));
+    .pipe(gulp.dest('build'));
 })
 ```
 
