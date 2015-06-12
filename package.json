@@ -1,0 +1,35 @@
+{
+  "name": "gulp-htmlsplit",
+  "version": "1.0.0",
+  "description": "Gulp plugin to split HTML files into multiple output files using HTML comments.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonygambone/gulp-htmlsplit.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "html",
+    "split",
+    "gulp"
+  ],
+  "author": "Tony Gambone <tonygambone@gmail.com> (http://tonygambone.org/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tonygambone/gulp-htmlsplit/issues"
+  },
+  "homepage": "https://github.com/tonygambone/gulp-htmlsplit#readme",
+  "dependencies": {
+    "gulp-util": "^3.0.5",
+    "through2": "^2.0.0",
+    "vinyl": "^0.5.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "mocha": "^2.2.5",
+    "stream-assert": "^2.0.2"
+  }
+}
