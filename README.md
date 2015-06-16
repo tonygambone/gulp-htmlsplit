@@ -2,6 +2,10 @@
 
 [Gulp](http://gulpjs.com/) plugin to split HTML files into multiple output files using HTML comments.
 
+![Travis CI](http://img.shields.io/travis/tonygambone/gulp-htmlsplit.svg)
+&nbsp;
+![npm version](http://img.shields.io/npm/v/gulp-htmlsplit.svg)
+
 ## Why?
 
 I wrote this to take a static HTML page layout and split it into multiple files
