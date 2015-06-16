@@ -68,3 +68,41 @@ The resulting files can then be piped to other steps in the task or written out.
   </body>
 </html>
 ```
+
+If the filename is the special string `stop`, all content will be discarded until
+the next split comment is encountered.  For example, to extract just the `header`
+and `footer` elements into separate files:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+  </head>
+  <body>
+<!-- split header.html -->
+    <header>
+      <h1>My header here</h1>
+    </header>
+<!-- split stop -->
+    <section>
+      <p>My content here</p>
+    </section>
+<!-- split footer.html -->
+    <footer>
+      <div>My footer here</div>
+    </footer>
+<!-- split stop -->
+  </body>
+</html>
+```
+
+An alternate `stop` string can be specified in the options:
+
+```js
+gulp.task('foo', function() {
+  gulp.src('./*.html')
+    .pipe(htmlsplit({ stop: 'end-here' }))
+    .pipe(gulp.dest('build'));
+})
+```

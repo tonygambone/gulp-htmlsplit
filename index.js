@@ -5,8 +5,10 @@ var through = require('through2'),
 
 const PLUGIN_NAME = 'gulp-htmlsplit';
 
-function split() {
+function split(opts) {
   var self = this;
+  var options = opts || {};
+  var stop = options.stop || 'stop';
   return through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       return cb(null, file);
@@ -41,7 +43,7 @@ function split() {
       // create a new Vinyl file for each split with content in it
       splits.forEach(function(s) {
         var newContents = contents.substr(s.start, s.end - s.start);
-        if (newContents.length > 0) {
+        if (newContents.length > 0 && s.name != stop) {
           this.push(new File({
             cwd: file.cwd,
             base: file.base,

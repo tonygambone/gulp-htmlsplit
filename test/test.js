@@ -15,7 +15,7 @@ var testFile = function(name) {
 
 var expected = (function() {
   var out = {};
-  ['content', 'header', 'footer'].forEach(function(name) {
+  ['content', 'header', 'footer', 'head', 'top'].forEach(function(name) {
     out[name] = fs.readFileSync('test/expected/' + name + '.html', 'utf8').trim();
   });
   out.nosplits = fs.readFileSync('test/inputs/nosplits.html', 'utf8');
@@ -77,8 +77,28 @@ describe('gulp-htmlsplit', function() {
       .pipe(strassert.end(done));
   });
 
+  it('should handle stop split comments properly', function(done) {
+    gulp.src(testFile('splitstop1.html'))
+      .pipe(strassert.length(1))
+      .pipe(htmlsplit())
+      .pipe(strassert.length(2))
+      .pipe(strassert.nth(0, shouldBeTheFile('head')))
+      .pipe(strassert.nth(1, shouldBeTheFile('top')))
+      .pipe(strassert.end(done));
+  });
+
+  it('should handle an alternate stop string', function(done) {
+    gulp.src(testFile('splitstop2.html'))
+      .pipe(strassert.length(1))
+      .pipe(htmlsplit({ stop: 'foo' }))
+      .pipe(strassert.length(2))
+      .pipe(strassert.nth(0, shouldBeTheFile('head')))
+      .pipe(strassert.nth(1, shouldBeTheFile('top')))
+      .pipe(strassert.end(done));
+  });
+
   it('should work on multiple files', function(done) {
-    gulp.src('test/inputs/*.html')
+    gulp.src('test/inputs/{emptysplits,nosplits,nostartsplit,splits}.html')
       .pipe(strassert.length(4))
       .pipe(htmlsplit())
       .pipe(strassert.length(9))
