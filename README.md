@@ -101,12 +101,48 @@ and `footer` elements into separate files:
 </html>
 ```
 
-An alternate `stop` string can be specified in the options:
+### Options
+
+**stop** -  An alternate string can be specified:
 
 ```js
 gulp.task('foo', function() {
   gulp.src('./*.html')
     .pipe(htmlsplit({ stop: 'end-here' }))
+    .pipe(gulp.dest('build'));
+})
+```
+
+**notExistsOnPath** - Pass a custom path to create splitted file only if not exists
+
+```js
+gulp.task('foo', function() {
+  gulp.src('./*.html')
+    .pipe(htmlsplit({ notExistsOnPath: 'path/to/destiny' }))
+    .pipe(gulp.dest('build'));
+})
+```
+
+**replace** - Replace the html split name to another
+
+> **INFO:** This option is great to change the origin split name (from another repository/package, for example)
+
+```html
+<!-- HTML EXAMPLE -->
+
+<!-- split origin/origin.html -->
+<div class="test"> This is a HTML with split name </div>
+<!-- split stop -->
+```
+
+```js
+gulp.task('foo', function() {
+  gulp.src('./*.html')
+    .pipe(htmlsplit({ 
+      replace: {
+        'origin': 'newSplitName' //Replace the "origin.html" to "newSplitName" 
+      }
+    }))
     .pipe(gulp.dest('build'));
 })
 ```
