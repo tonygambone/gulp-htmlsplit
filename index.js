@@ -47,7 +47,7 @@ function split(opts) {
           this.push(new File({
             cwd: file.cwd,
             base: file.base,
-            path: path.dirname(file.path) + '/' + s.name,
+            path: path.join(path.dirname(file.path), s.name),
             contents: new Buffer(newContents)
           }));
         }
