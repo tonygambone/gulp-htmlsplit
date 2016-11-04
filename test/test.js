@@ -25,8 +25,8 @@ var expected = (function() {
 var shouldBeTheFile = function(name) {
   return function(file) {
     assert.equal(file.path, path.resolve(testFile(name + '.html')));
-    var output = file.contents.toString('utf8');
-    assert.deepEqual(output, expected[name]);
+    var output = file.contents.toString('utf8').replace(/\r/g, '');
+    assert.deepEqual(output, expected[name].replace(/\r/g, ''));
   };
 }
 
