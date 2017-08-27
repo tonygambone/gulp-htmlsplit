@@ -37,11 +37,27 @@ gulp.task('foo', function() {
 
 ### HTML file
 
-The plugin will look for comments of the form:
+By default plugin will look for lines in the HTML like this:
 
-`<!-- split filename.ext -->`
+`<!-- split myFilename.ext -->`
 
-Everything following one of these comments will be piped to a file named `filename.ext`,
+This divider be customised by setting the `splitStr` option to a valid regex value,
+where group 1 represents the desired filename. By default the following regex is used:
+
+```js
+var htmlsplit = require('gulp-htmlsplit');
+
+gulp.task('foo', function() {
+  gulp.src('./*.html')
+    .pipe(htmlsplit(
+      // Where (\S+) represents the group with the file name
+      splitStr: /\s*<!--\s*split\s+(\S+)\s*-->\s*/g
+    ))
+    .pipe(gulp.dest('build'));
+})
+```
+
+Everything following one of these dividers will be piped to a file named `myFilename.ext`,
 until another `split` comment is encountered, or the file ends.
 
 If the HTML file does not begin with a `split` comment, the contents will be discarded

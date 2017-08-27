@@ -9,6 +9,7 @@ function split(opts) {
   var self = this;
   var options = opts || {};
   var stop = options.stop || 'stop';
+  var splitStr = options.splitStr || /\s*<!--\s*split\s+(\S+)\s*-->\s*/g;
   return through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       return cb(null, file);
@@ -23,9 +24,8 @@ function split(opts) {
       var contents = file.contents.toString(enc);
 
       // detect split comments and build a list of splits
-      var regex = /\s*<!--\s*split\s+(\S+)\s*-->\s*/g;
       var result, splits = [];
-      while (result = regex.exec(contents)) {
+      while (result = splitStr.exec(contents)) {
         splits.push({ name: result[1], start: result.index + result[0].length });
         if (splits.length > 1) {
           splits[splits.length - 2].end = result.index;
